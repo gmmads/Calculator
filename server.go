@@ -20,7 +20,7 @@ var (
 )
 
 func main() {
-	port := os.Getenv("PORT")
+	port := ":" + os.Getenv("PORT")
 	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
 		fmt.Fprintln(resp, "Up and running...")
 	})
