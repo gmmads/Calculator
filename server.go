@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gmmads/Calculator/calculator"
 	"github.com/gmmads/Calculator/controller"
@@ -19,7 +20,7 @@ var (
 )
 
 func main() {
-	const port string = ":8000"
+	port := os.Getenv("PORT")
 	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
 		fmt.Fprintln(resp, "Up and running...")
 	})
