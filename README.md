@@ -1,34 +1,49 @@
 # Calculator
-Over-engineered calculator. A basic calculator with a history. Exposes a REST API
+Over-engineered calculator. A basic calculator with a history. Exposes a REST API. Deployed to https://safe-journey-27266.herokuapp.com/
 
 ## Installation
-Clone repository
+We can run a local version of the service. To do this first install Go: https://golang.org/. Then clone repository:
 ```bash
 git clone https://github.com/gmmads/Calculator.git
 ```
-Running the following from project root installs all dependencies, and starts the server:
+Then running the following from project root installs all dependencies, and starts a local version of the server:
 ```bash
-go run .
+go run . test
 ```
 
 ## Usage
 Postman collection: https://www.getpostman.com/collections/56ad5017b22c096dbe75
 
-Can see history by making GET-request to localhost:8000/calculate
+Can send GET-requests to https://safe-journey-27266.herokuapp.com/ and https://safe-journey-27266.herokuapp.com/calculations, and POST-request to https://safe-journey-27266.herokuapp.com/calculations (or localhost:8000/ and localhost:8000/calculations if using a local server).
 
-Can submit new calculation by making POST request to localhost:8000/calculate with body being a json-string such as the one below: 
+Submit new calculation by making a POST-request to /calculations with body being a JSON-string such as the one below: 
 ```json
 {
   "expr":"(1+2) * (10 / 5) - 42"
 }
 ```
-Accepted expression symbols are +, -, *, /, (, ) and any number.
+Accepted expression symbols are +, -, *, /, (, ) and any integer.
 
-Calculation is integer arithmetic. 
+Returns a JSON-object:
+```json
+{
+    "expr": "(1+2) * (10 / 5) - 42",
+    "result": -36
+}
+```
+or something like:
+```json
+{
+    "message": "some error"
+}
+```
+if an error occured (e.g. the expression used an unrecognised symbol, expression did not parse, or division by zero occured) 
+
+A GET-request to /calculations will return a JSON-object with the history of all the calculations performed so far.
 
 ## Backlog (if I had more time)
-Overflow protection (right now overflow just results in a negative number), 
-support for floats and more interesting operations such as ^,
+Overflow protection (right now overflow is just allowed to occur, and no warning or error is raised), 
+support for more interesting operations such as ^,
 user auth (and a designated history for each individual user), 
 website for using service.
 
