@@ -2,16 +2,16 @@ package calculator
 
 import (
 	"github.com/gmmads/Calculator/entity"
+	"github.com/gmmads/Calculator/history"
 	"github.com/gmmads/Calculator/interpreter"
 	"github.com/gmmads/Calculator/lexer"
 	"github.com/gmmads/Calculator/parser"
-	"github.com/gmmads/Calculator/repository"
 )
 
 type BasicCalculator struct{}
 
 var (
-	repo      repository.CalculationRepository
+	hist      history.History
 	lex       lexer.Lexer
 	parse     parser.Parser
 	interpret interpreter.Interpreter
@@ -19,8 +19,8 @@ var (
 
 // A calculator that uses a Lexer, a Parser, and an Interpreter to evaluate expressions.
 // Uses a repository to keep a history of users' calculations.
-func NewBasicCalculator(repository repository.CalculationRepository) Calculator {
-	repo = repository
+func NewBasicCalculator(history history.History) Calculator {
+	hist = history
 	lex = lexer.NewCalcLexer()
 	parse = parser.NewCalcParser()
 	interpret = interpreter.NewCalcInterpreter()
@@ -46,9 +46,9 @@ func (*BasicCalculator) Evaluate(expr string) (*entity.Calculation, error) {
 		return nil, err3
 	}
 	calculation := entity.Calculation{Expr: expr, Result: int64(result)}
-	return repo.Save(&calculation)
+	return hist.Save(&calculation)
 }
 
 func (*BasicCalculator) GetHistory() ([]entity.Calculation, error) {
-	return repo.FindAll()
+	return hist.FindAll()
 }

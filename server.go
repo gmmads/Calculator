@@ -6,13 +6,13 @@ import (
 
 	"github.com/gmmads/Calculator/calculator"
 	"github.com/gmmads/Calculator/controller"
+	"github.com/gmmads/Calculator/history"
 	router "github.com/gmmads/Calculator/http"
-	"github.com/gmmads/Calculator/repository"
 )
 
 var (
-	calculationRepository repository.CalculationRepository = repository.NewFirestoreRepository()
-	basicCalculator       calculator.Calculator            = calculator.NewBasicCalculator(calculationRepository)
+	calcHistory     history.History       = history.NewCalcHistory()
+	basicCalculator calculator.Calculator = calculator.NewBasicCalculator(calcHistory)
 
 	calculationController controller.CalculationController = controller.NewCalculationController(basicCalculator)
 	httpRouter            router.Router                    = router.NewChiRouter()

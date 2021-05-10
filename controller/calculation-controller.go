@@ -30,7 +30,7 @@ func (*controller) GetHistory(resp http.ResponseWriter, req *http.Request) {
 	calculations, err := calculate.GetHistory()
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resp).Encode(errors.ServiceError{Message: "Error getting the history"})
+		json.NewEncoder(resp).Encode(errors.ServiceError{Message: "Error getting the history: " + err.Error()})
 		return
 	}
 	resp.WriteHeader(http.StatusOK)
