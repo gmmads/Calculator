@@ -20,13 +20,19 @@ var (
 )
 
 func main() {
-	port := ":" + os.Getenv("PORT")
+	var port string
+	if len(os.Args) > 1 && os.Args[1] == "test" {
+		port = ":8000"
+	} else {
+		port = ":" + os.Getenv("PORT")
+	}
+
 	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
 		fmt.Fprintln(resp, "Up and running...")
 	})
 
-	httpRouter.GET("/calculate", calculationController.GetHistory)
-	httpRouter.POST("/calculate", calculationController.AddCalculation)
+	httpRouter.GET("/calculations", calculationController.GetHistory)
+	httpRouter.POST("/calculations", calculationController.AddCalculation)
 
 	httpRouter.SERVE(port)
 }

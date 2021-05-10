@@ -14,7 +14,7 @@ func TestConstant(t *testing.T) {
 	ast := &parser.AstNode{NodeType: constants.NUMBER, Token: lexer.Token{TokenType: constants.NUMBER, Value: 3}}
 	result, err := interpreter.GetValue(ast)
 	assert.Nil(t, err)
-	assert.Equal(t, 3, result)
+	assert.Equal(t, 3.0, result)
 }
 
 func TestUminus(t *testing.T) {
@@ -23,7 +23,7 @@ func TestUminus(t *testing.T) {
 	ast := &parser.AstNode{NodeType: constants.UMINUS, Token: lexer.Token{TokenType: constants.MINUS}, Children: []*parser.AstNode{child}}
 	result, err := interpreter.GetValue(ast)
 	assert.Nil(t, err)
-	assert.Equal(t, -3, result)
+	assert.Equal(t, -3.0, result)
 }
 
 func TestAddition(t *testing.T) {
@@ -33,7 +33,7 @@ func TestAddition(t *testing.T) {
 	ast := &parser.AstNode{NodeType: constants.PLUS, Token: lexer.Token{TokenType: constants.PLUS}, Children: []*parser.AstNode{left, right}}
 	result, err := interpreter.GetValue(ast)
 	assert.Nil(t, err)
-	assert.Equal(t, 42, result)
+	assert.Equal(t, 42.0, result)
 }
 
 func TestSubtraction(t *testing.T) {
@@ -43,7 +43,7 @@ func TestSubtraction(t *testing.T) {
 	ast := &parser.AstNode{NodeType: constants.MINUS, Token: lexer.Token{TokenType: constants.MINUS}, Children: []*parser.AstNode{left, right}}
 	result, err := interpreter.GetValue(ast)
 	assert.Nil(t, err)
-	assert.Equal(t, -2, result)
+	assert.Equal(t, -2.0, result)
 }
 
 func TestMult(t *testing.T) {
@@ -53,7 +53,7 @@ func TestMult(t *testing.T) {
 	ast := &parser.AstNode{NodeType: constants.MULT, Token: lexer.Token{TokenType: constants.MULT}, Children: []*parser.AstNode{left, right}}
 	result, err := interpreter.GetValue(ast)
 	assert.Nil(t, err)
-	assert.Equal(t, 20*22, result)
+	assert.Equal(t, 20.0*22.0, result)
 }
 
 func TestDivision(t *testing.T) {
@@ -63,7 +63,7 @@ func TestDivision(t *testing.T) {
 	ast := &parser.AstNode{NodeType: constants.DIV, Token: lexer.Token{TokenType: constants.DIV}, Children: []*parser.AstNode{left, right}}
 	result, err := interpreter.GetValue(ast)
 	assert.Nil(t, err)
-	assert.Equal(t, 20/22, result)
+	assert.Equal(t, 20.0/22.0, result)
 }
 
 func TestDivisionByZero(t *testing.T) {
@@ -90,5 +90,5 @@ func TestComplicatedExpression(t *testing.T) {
 
 	result, err := interpreter.GetValue(ast)
 	assert.Nil(t, err)
-	assert.Equal(t, (1+2)-((-3)*4), result)
+	assert.Equal(t, (1.0+2.0)-((-3.0)*4.0), result)
 }

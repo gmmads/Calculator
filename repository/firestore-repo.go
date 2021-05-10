@@ -62,7 +62,7 @@ func (*repo) FindAll() ([]entity.Calculation, error) {
 		}
 		calculation := entity.Calculation{
 			Expr:   doc.Data()["expr"].(string),
-			Result: doc.Data()["result"].(int64),
+			Result: doc.Data()["result"].(float64),
 		}
 		calculations = append(calculations, calculation)
 	}

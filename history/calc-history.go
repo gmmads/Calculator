@@ -1,8 +1,6 @@
 package history
 
 import (
-	"errors"
-
 	"github.com/gmmads/Calculator/entity"
 )
 
@@ -13,6 +11,7 @@ var (
 )
 
 func NewCalcHistory() History {
+	calculations = make([]entity.Calculation, 0)
 	return &CalcHistory{}
 }
 
@@ -22,8 +21,5 @@ func (*CalcHistory) Save(calculation *entity.Calculation) (*entity.Calculation, 
 }
 
 func (*CalcHistory) FindAll() ([]entity.Calculation, error) {
-	if len(calculations) == 0 {
-		return nil, errors.New("no calculations have been made yet.")
-	}
 	return calculations, nil
 }

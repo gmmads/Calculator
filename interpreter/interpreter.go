@@ -5,5 +5,5 @@ import (
 )
 
 type Interpreter interface {
-	GetValue(ast *parser.AstNode) (int, error)
+	GetValue(ast *parser.AstNode) (float64, error)
 }

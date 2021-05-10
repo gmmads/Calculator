@@ -13,10 +13,10 @@ func NewCalcInterpreter() Interpreter {
 	return &CalcInterpreter{}
 }
 
-func (interpreter *CalcInterpreter) GetValue(ast *parser.AstNode) (int, error) {
+func (interpreter *CalcInterpreter) GetValue(ast *parser.AstNode) (float64, error) {
 	switch ast.NodeType {
 	case constants.NUMBER:
-		return ast.Token.Value, nil
+		return float64(ast.Token.Value), nil
 	case constants.UMINUS:
 		childValue, err := interpreter.GetValue(ast.Children[0])
 		if err != nil {

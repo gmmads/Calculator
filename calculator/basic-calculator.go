@@ -45,7 +45,7 @@ func (*BasicCalculator) Evaluate(expr string) (*entity.Calculation, error) {
 	if err3 != nil {
 		return nil, err3
 	}
-	calculation := entity.Calculation{Expr: expr, Result: int64(result)}
+	calculation := entity.Calculation{Expr: expr, Result: result}
 	return hist.Save(&calculation)
 }
 

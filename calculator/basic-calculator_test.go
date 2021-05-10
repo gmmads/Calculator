@@ -29,14 +29,14 @@ func TestGetHistory(t *testing.T) {
 	calc := NewBasicCalculator(mockRepo)
 
 	// Mock setup of repository
-	calculation := entity.Calculation{Expr: "2+2", Result: 4}
+	calculation := entity.Calculation{Expr: "2+2", Result: 4.0}
 	mockRepo.On("FindAll").Return([]entity.Calculation{calculation}, nil)
 
 	result, _ := calc.GetHistory()
 
 	mockRepo.AssertExpectations(t)
 	assert.Equal(t, "2+2", result[0].Expr)
-	assert.Equal(t, int64(4), result[0].Result)
+	assert.Equal(t, 4.0, result[0].Result)
 }
 
 func TestEvaluateLexerError(t *testing.T) {
@@ -69,7 +69,7 @@ func TestEvaluate(t *testing.T) {
 	mockRepo := new(MockRepository)
 	calc := NewBasicCalculator(mockRepo)
 
-	calculation := entity.Calculation{Expr: "21*2", Result: 42}
+	calculation := entity.Calculation{Expr: "21*2", Result: 42.0}
 
 	mockRepo.On("Save").Return(&calculation, nil)
 
@@ -79,5 +79,5 @@ func TestEvaluate(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, "21*2", result.Expr)
-	assert.Equal(t, int64(42), result.Result)
+	assert.Equal(t, 42.0, result.Result)
 }
